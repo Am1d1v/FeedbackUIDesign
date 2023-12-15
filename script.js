@@ -3,22 +3,20 @@
 const ratings = document.querySelectorAll('.rating');
 const sendButton = document.querySelector('#send');
 const panel = document.querySelector('#panel');
+let selectedRating =  '';
 
 
 panel.addEventListener('click', (event) => {
-    
-    console.log(ratings);
-
-    // Submit only for button
-    if(event.target === sendButton){
-        console.log('ok');
-    }
 
     // Choose define smileface
     if(event.target.parentNode.classList.contains('rating')){
-        removeActive(event.target.parentNode);
+
+        removeActive();
         event.target.parentNode.classList.add('active')
+        selectedRating = event.target.nextElementSibling.innerHTML;
     }
+
+    console.log(selectedRating);
 });
 
 // Remove class 'active' of elements in rating array
@@ -27,3 +25,13 @@ function removeActive(){
         ratingElement.classList.remove('active')
     })
 }
+
+// Submit button
+sendButton.addEventListener('click', () => {
+
+    panel.innerHTML = `<i class="fas fa-heart"></i>
+                        <strong>Thank you</strong>
+                        <br />
+                        <strong>Feedback: ${selectedRating}</strong>
+    `;
+});
